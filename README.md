@@ -1,6 +1,6 @@
-# 🖼 Image Compressor for Web
+# 🖼 Image Compressor
 
-A lightweight Windows desktop app that compresses images for website use — built with Python, Pillow, and CustomTkinter.
+A lightweight Windows desktop app for general-purpose image compression and resizing — built with Python, Pillow, and CustomTkinter.
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Python](https://img.shields.io/badge/python-3.13-blue)
@@ -13,8 +13,10 @@ A lightweight Windows desktop app that compresses images for website use — bui
 - **Drag-and-drop** files or folders directly onto the app
 - **Batch processing** — compress dozens of images at once
 - **Quality slider** (1–100) for fine-grained compression control
-- **Output format** — choose between web-optimised JPG or WEBP
-- **Non-destructive** — originals are never overwritten; compressed files get a `_compressed` suffix
+- **Output format** — choose between optimised JPG or WEBP
+- **Optional resizing** — cap max width/height (aspect ratio preserved, never upscaled)
+- **Metadata control** — strip EXIF/ICC data by default, or opt in to keep it
+- **Flexible output naming** — save compressed files with a `_compressed` suffix, or opt in to replacing the originals in place
 - **Per-file report** — see exactly how much space was saved on each image
 - **Dark mode UI** powered by CustomTkinter
 
@@ -24,7 +26,7 @@ A lightweight Windows desktop app that compresses images for website use — bui
 
 | Input | Output |
 |---|---|
-| JPG / JPEG | JPG (progressive, web-optimised) |
+| JPG / JPEG / JFIF | JPG (progressive) |
 | PNG | WEBP (with transparency support) |
 | WEBP | |
 | BMP | |
@@ -94,6 +96,8 @@ pyinstaller --noconfirm --onefile --windowed --name "ImageCompressor" ^
 - **JPG output** — images are saved with progressive encoding and Pillow's optimize flag, compositing any transparent layers onto a white background.
 - **WEBP output** — uses method 6 (best compression) and preserves transparency from PNG/WEBP sources.
 - The quality slider maps directly to Pillow's `quality` parameter (1 = smallest file, 100 = lossless-like).
+- **Resizing** (optional) — set a max width and/or height; the image is shrunk to fit within that box while preserving aspect ratio. Images smaller than the box are left untouched (never upscaled).
+- **Metadata** — EXIF and ICC color profile data are stripped by default; check "Keep metadata" to carry them over to the output.
 
 ---
 
